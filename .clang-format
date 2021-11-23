@@ -2,11 +2,13 @@
 ## Check config if use other clang-format version
 ##
 ## Ubuntu 18.04 install the version 6.0.0 of clang-format by default
+## Ubuntu 20.04 install the version 10.0.0 of clang-format by default
 ## Use command 'sudo apt-get install clang-format' to install
 ## Check clang-format version by 'clang-format --version'
 ##
 ## CLANG-FORMAT STYLE OPTIONS
 ## See: https://releases.llvm.org/6.0.0/tools/clang/docs/ClangFormatStyleOptions.html for details of each option
+## See: https://releases.llvm.org/10.0.0/tools/clang/docs/ClangFormatStyleOptions.html for details of each option
 ##
 ## Use the script utilities/clang-format.bash to facilitate
 ## maintaining a consistent code style.
@@ -106,10 +108,11 @@ PenaltyBreakString: 1000
 PenaltyExcessCharacter: 1000000
 PenaltyReturnTypeOnItsOwnLine: 200
 PointerAlignment: Left  # int* a;
-RawStringFormats: 
-  - Delimiter:       pb
-    Language:        TextProto
-    BasedOnStyle:    google
+# do not support in clang-format10(ubuntu20)
+# RawStringFormats: 
+#   - Delimiter:       pb
+#     Language:        TextProto
+#     BasedOnStyle:    google
 ReflowComments:  true
 SortIncludes:    true
 SortUsingDeclarations: true
