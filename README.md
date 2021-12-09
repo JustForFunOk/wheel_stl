@@ -7,5 +7,9 @@ Reinventing the wheel of STL (Standard Template Library)
 This project is really 'Just For Study'. Including the following aspects:
 
 * **the principle of STL**
-* how to use [gtest](https://github.com/google/googletest)
-* how to use CICD in gitlab
+* project workflow
+  * Style (clang-format, cpplint)
+  * Build ([bazel](https://bazel.build/))
+  * Test ([gtest](https://github.com/google/googletest))
+  * CICD ([github action](https://docs.github.com/en/actions))
+  * ...
