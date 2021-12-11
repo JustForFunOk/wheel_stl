@@ -13,3 +13,12 @@ This project is really 'Just For Study'. Including the following aspects:
   * Test ([gtest](https://github.com/google/googletest))
   * CICD ([github action](https://docs.github.com/en/actions))
   * ...
+
+
+## Config Local Develop Environment
+``` bash
+./utilities/setup_local_environment.sh
+```
+
+## CICD Build & Run Environment
+* github runner has install latest bazel by default.
