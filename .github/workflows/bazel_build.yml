@@ -1,0 +1,9 @@
+name: 'Bazel Build Workflows'
+on: [push]
+jobs:
+  build_code:
+    name: 'Build code'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout Code onto runner'
+        uses: actions/checkout@v2 # https://github.com/marketplace/actions/checkout
