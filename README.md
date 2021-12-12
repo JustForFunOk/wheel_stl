@@ -1,5 +1,7 @@
 # wheel_stl
 
+![Build Status](https://github.com/JustForFunOk/wheel_stl/actions/workflows/bazel_build.yml/badge.svg)
+
 Reinventing the wheel of STL (Standard Template Library)
 
 ## Why this project?
