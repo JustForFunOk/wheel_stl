@@ -1,0 +1,3 @@
+# ingnore bazel output
+# bazel-bin, bazel-out, bazel-...
+bazel-*/
