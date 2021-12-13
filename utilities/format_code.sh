@@ -10,7 +10,7 @@ if ! type -p clang-format >/dev/null; then
   exit 1
 fi
 
-echo "####################clang-format######################"
+echo "-------------------clang-format-------------------"
 echo "Start clang-format for every file in current folder..."
 # SECONDS is bash builtin variable that tracks the number of seconds
 # that have passed since the shell was started
@@ -27,7 +27,7 @@ find $repo_path \
 echo "End of clang-format..."
 echo "Cost $SECONDS sec."
 
-echo "######################cpplint#########################"
+echo "----------------------cpplint---------------------"
 
 echo "Start cpplint..."
 SECONDS=0
@@ -38,4 +38,4 @@ find $repo_path -type f -name "*.h" -or -name "*.cc" -or -name "*.cpp"\
 echo "End of cpplint"
 echo "Cost $SECONDS sec."
 
-echo "######################################################"
+echo "--------------------------------------------------"
