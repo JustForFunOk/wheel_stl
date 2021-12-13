@@ -7,3 +7,6 @@ jobs:
     steps:
       - name: 'Checkout Code onto runner'
         uses: actions/checkout@v2 # https://github.com/marketplace/actions/checkout
+
+      - name: 'Bazel Build'
+        run: bazel build ...
