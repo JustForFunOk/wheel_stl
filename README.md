@@ -17,10 +17,20 @@ This project is really 'Just For Study'. Including the following aspects:
   * ...
 
 
-## Config Local Develop Environment
+## Local Development
+
+### Environment Setup
 ``` bash
 ./utilities/setup_local_environment.sh
 ```
+## Develop workflow
+``` bash
+./utilities/build_all.sh
+```
 
 ## CICD Build & Run Environment
-* github runner has install latest bazel by default.
+
+[Do nothing]
+
+* **Bazel**. github runner has install latest bazel by default.
+* **third-party**. other third-party dependency all installed by Bazel.
