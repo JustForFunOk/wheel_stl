@@ -34,7 +34,7 @@ SECONDS=0
 # grep -v to filt the file in .cpplintignore
 find $repo_path -type f -name "*.h" -or -name "*.cc" -or -name "*.cpp"\
   | grep -v $(printf -- "-f %s " $(find $repo_path -name \*.cpplintignore)) \
-  | xargs $repo_path/utilities/cpplint.py --counting=detailed --quiet
+  | xargs $repo_path/utilities/cpplint/cpplint.py --counting=detailed --quiet
 echo "End of cpplint"
 echo "Cost $SECONDS sec."
 
