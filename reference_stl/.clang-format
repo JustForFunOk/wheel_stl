@@ -1,3 +1,0 @@
-DisableFormat: true
-# DisableFormat does not seem to disable include-sorting, so it has to be given explicitly
-SortIncludes: false
