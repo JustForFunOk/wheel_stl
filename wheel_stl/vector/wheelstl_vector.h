@@ -6,27 +6,30 @@ template <typename T>
 class vector {
  public:
   // empty container constructor
-  vector() : data(nullptr), size(0), capability(0) {}
+  vector() : data_(nullptr), size_(0), capability_(0) {}
 
   // fill constructor
   explicit vector(size_t n) {
-    data = new T[n];
-    size = n;
-    capability = n;
+    data_ = new T[n];
+    size_ = n;
+    capability_ = n;
   }
 
   ~vector() {
-    if (data) {
-      delete[] data;
-      size = 0;
-      capability = 0;
+    if (data_) {
+      delete[] data_;
+      size_ = 0;
+      capability_ = 0;
     }
   }
 
+  // size()
+  size_t size() { return size_; }
+
  private:
-  T* data;
-  size_t size;
-  size_t capability;
+  T* data_;
+  size_t size_;
+  size_t capability_;
 };
 
 }  // namespace wheelstl

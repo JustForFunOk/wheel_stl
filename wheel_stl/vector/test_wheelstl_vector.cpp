@@ -6,19 +6,21 @@
 
 #include "wheel_stl/vector/wheelstl_vector.h"
 
-TEST(Vector, sizeof) {
+TEST(WheelStlVector, sizeof) {
   std::vector<int> vec;
   wheelstl::vector<int> wheel_vec;
-  std::cout << "sizeof(wheel_vec) = " << sizeof(wheel_vec) << std::endl;
-  std::cout << "sizeof(vec) = " << sizeof(vec) << std::endl;
+
+  EXPECT_EQ(24, sizeof(wheel_vec));
   EXPECT_EQ(sizeof(wheel_vec), sizeof(vec));
 }
 
-TEST(Vector, constructor) {
+TEST(WheelStlVector, constructor) {
   // empty container constructor
   {
     std::vector<int> vec;
+    wheelstl::vector<int> wheel_vec;
     EXPECT_EQ(0, vec.size());
+    EXPECT_EQ(wheel_vec.size(), vec.size());
   }
 
   // fill constructor 1
@@ -77,6 +79,6 @@ TEST(Vector, constructor) {
   }
 }
 
-TEST(Vector, destructor) {
+TEST(WheelStlVector, destructor) {
   // how test destructor?
 }
