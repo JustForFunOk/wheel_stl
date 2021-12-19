@@ -1,11 +1,17 @@
 // https://www.cplusplus.com/reference/vector/vector/
 
 #include <gtest/gtest.h>
+#include <iostream>
 #include <vector>
+
+#include "wheel_stl/vector/wheelstl_vector.h"
 
 TEST(Vector, sizeof) {
   std::vector<int> vec;
-  EXPECT_EQ(24, sizeof(vec));
+  wheelstl::vector<int> wheel_vec;
+  std::cout << "sizeof(wheel_vec) = " << sizeof(wheel_vec) << std::endl;
+  std::cout << "sizeof(vec) = " << sizeof(vec) << std::endl;
+  EXPECT_EQ(sizeof(wheel_vec), sizeof(vec));
 }
 
 TEST(Vector, constructor) {

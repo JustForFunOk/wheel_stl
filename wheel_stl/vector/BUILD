@@ -18,3 +18,14 @@ cc_test(
         "@gtest//:gtest_main",
     ],
 )
+
+cc_test(
+    name = "test_wheelstl_vector",
+    srcs = ["test_wheelstl_vector.cpp",
+        "wheelstl_vector.h"
+    ],
+    deps = [
+        "@gtest",
+        "@gtest//:gtest_main",
+    ],
+)
