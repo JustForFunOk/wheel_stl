@@ -8,9 +8,9 @@
 
 TEST(WheelStlVector, sizeof) {
   std::vector<int> vec;
-  wheelstl::vector<int> wheel_vec;
+  EXPECT_EQ(24, sizeof(vec));
 
-  EXPECT_EQ(24, sizeof(wheel_vec));
+  wheelstl::vector<int> wheel_vec;
   EXPECT_EQ(sizeof(wheel_vec), sizeof(vec));
 }
 
@@ -18,8 +18,9 @@ TEST(WheelStlVector, constructor) {
   // empty container constructor
   {
     std::vector<int> vec;
-    wheelstl::vector<int> wheel_vec;
     EXPECT_EQ(0, vec.size());
+
+    wheelstl::vector<int> wheel_vec;
     EXPECT_EQ(wheel_vec.size(), vec.size());
   }
 
@@ -28,6 +29,9 @@ TEST(WheelStlVector, constructor) {
     const int kElementNum = 5;  // 5 elements
     std::vector<int> vec(kElementNum);
     EXPECT_EQ(kElementNum, vec.size());
+
+    wheelstl::vector<int> wheel_vec(kElementNum);
+    EXPECT_EQ(kElementNum, wheel_vec.size());
   }
 
   {
@@ -36,10 +40,15 @@ TEST(WheelStlVector, constructor) {
     const int kValue = 100;     // with value 100
 
     std::vector<int> fill_vec(kElementNum, kValue);
-
     EXPECT_EQ(kElementNum, fill_vec.size());
     for (size_t i = 0; i < fill_vec.size(); ++i) {
       EXPECT_EQ(kValue, fill_vec[i]);
+    }
+
+    std::vector<int> wheelstl_fill_vec(kElementNum, kValue);
+    EXPECT_EQ(kElementNum, wheelstl_fill_vec.size());
+    for (size_t i = 0; i < wheelstl_fill_vec.size(); ++i) {
+      EXPECT_EQ(kValue, wheelstl_fill_vec[i]);
     }
 
     // range constructor
