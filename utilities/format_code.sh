@@ -6,7 +6,7 @@ echo "Current git root path: $repo_path"
 
 # Check clang-format is installed
 if ! type -p clang-format >/dev/null; then
-  echo "Unable to locate clang-format. Please install it by: 'sudo apt install clang-format'"
+  echo "Unable to locate clang-format. Please install it by: 'sudo apt install clang-format' or 'brew install clang-format'"
   exit 1
 fi
 
