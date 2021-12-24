@@ -25,7 +25,7 @@ class vector {
     end_ = start_ + n;
     end_of_capability_ = end_;
     for (auto i = start_; i != end_; ++i) {
-      *(start_ + i) = val;
+      *i = val;
     }
   }
 
@@ -40,6 +40,12 @@ class vector {
 
   // size()
   size_t size() { return end_ - start_; }
+
+  /**
+   * @brief operator []
+   * @param n the n-th element of vector
+   */
+  T& operator[](size_t n) { return *(start_ + n); }
 
   /**
    * @brief get the first iterator of vector
