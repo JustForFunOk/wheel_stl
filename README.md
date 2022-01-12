@@ -21,7 +21,7 @@ This project is really 'Just For Study'. Including the following aspects:
 
 ### Environment Setup
 ``` bash
-./utilities/setup_local_environment.sh
+./utilities/setup_<linux/macos>_environment.sh
 ```
 ## Develop workflow
 ``` bash

@@ -10,6 +10,7 @@ load("//third_party/buildtools:direct.bzl", "load_buildtools")
 load("//third_party/gtest:direct.bzl", "load_gtest")
 load("//third_party/protobuf:direct.bzl", "load_protobuf")
 load("//third_party/rules_go:direct.bzl", "load_rules_go")
+load("//third_party/eigen:direct.bzl", "load_eigen")
 
 def load_third_party_libraries():
     """Load all third party dependencies"""
@@ -18,3 +19,4 @@ def load_third_party_libraries():
     load_gtest()
     load_protobuf()
     load_rules_go()
+    load_eigen() # required from wheel_autonomy
