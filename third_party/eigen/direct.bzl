@@ -23,6 +23,7 @@ def load_eigen():
         name = "eigen",
         build_file = "@wheel//third_party/eigen:BUILD",
         urls = [
+            # get url from https://eigen.tuxfamily.org/index.php?title=Main_Page
             "https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz",
             # add other backup url to here
         ],
