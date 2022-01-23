@@ -1,3 +1,10 @@
+// fix eigen display bug in vscode
+// https://github.com/microsoft/vscode-cpptools/issues/7413#issuecomment-827172897
+#if __INTELLISENSE__
+#undef __ARM_NEON
+#undef __ARM_NEON__
+#endif
+
 #include <gtest/gtest.h>
 #include <Eigen/Dense>
 
