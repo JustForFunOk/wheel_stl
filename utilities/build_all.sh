@@ -12,3 +12,6 @@ echo "Current Path: $(pwd)"
 
 # build all
 bazel build ... --disk_cache=~/.wheel_stl_bazel_cache
+
+# run uint test
+bazel test ... --test_output=all
