@@ -19,6 +19,10 @@ Language:        Cpp  # Used for C, C++
 BasedOnStyle:  Google
 AccessModifierOffset: -1  # e.g. public:, private:, protected:
 AlignAfterOpenBracket: Align
+# If AlignConsecutiveAssignments is true, aligns consecutive assignments.
+# int aaaa = 12;
+# int b    = 23;
+# int ccc  = 23;
 AlignConsecutiveAssignments: true
 AlignConsecutiveDeclarations: false
 AlignEscapedNewlines: Left
@@ -34,7 +38,29 @@ AlwaysBreakAfterDefinitionReturnType: None  # Deprecated
 AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: true
 AlwaysBreakTemplateDeclarations: true
+# BinPackArguments
+# true:
+# void f() {
+#   f(aaaaaaaaaaaaaaaaaaaa, aaaaaaaaaaaaaaaaaaaa,
+#     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa);
+# }
+#
+# false:
+# void f() {
+#   f(aaaaaaaaaaaaaaaaaaaa,
+#     aaaaaaaaaaaaaaaaaaaa,
+#     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa);
+# }
 BinPackArguments: false
+# BinPackParameters
+# true:
+# void f(int aaaaaaaaaaaaaaaaaaaa, int aaaaaaaaaaaaaaaaaaaa,
+#        int aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa) {}
+#
+# false:
+# void f(int aaaaaaaaaaaaaaaaaaaa,
+#        int aaaaaaaaaaaaaaaaaaaa,
+#        int aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa) {}
 BinPackParameters: false
 BraceWrapping:  # Ignored because 'BreakBeforeBraces:' is not 'Custom'
   AfterClass:      false
