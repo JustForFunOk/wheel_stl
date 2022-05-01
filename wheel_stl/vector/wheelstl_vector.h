@@ -10,8 +10,8 @@ class vector {
 
   // fill constructor 1
   explicit vector(size_t n) {
-    start_ = new T[n];
-    end_ = start_ + n;
+    start_             = new T[n];
+    end_               = start_ + n;
     end_of_capability_ = end_;
   }
 
@@ -21,8 +21,8 @@ class vector {
    * @param val init val of element
    */
   vector(size_t n, const T& val) {
-    start_ = new T[n];
-    end_ = start_ + n;
+    start_             = new T[n];
+    end_               = start_ + n;
     end_of_capability_ = end_;
     for (auto i = start_; i != end_; ++i) {
       *i = val;
@@ -32,8 +32,8 @@ class vector {
   ~vector() {
     if (start_) {
       delete[] start_;
-      start_ = nullptr;
-      end_ = nullptr;
+      start_             = nullptr;
+      end_               = nullptr;
       end_of_capability_ = nullptr;
     }
   }

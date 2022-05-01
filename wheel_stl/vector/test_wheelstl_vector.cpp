@@ -52,8 +52,8 @@ TEST(WheelStlVector, constructor) {
 
 {
   // fill constructor 2
-  const int kElementNum = 3;  // 3 elements
-  const int kValue = 100;     // with value 100
+  const int kElementNum = 3;    // 3 elements
+  const int kValue      = 100;  // with value 100
 
   std::vector<int> fill_vec(kElementNum, kValue);
   EXPECT_EQ(kElementNum, fill_vec.size());
