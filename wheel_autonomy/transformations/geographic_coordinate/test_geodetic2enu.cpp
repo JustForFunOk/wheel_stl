@@ -1,4 +1,4 @@
-#include "geographic_coordinate_transformations.h"
+#include "geographic_coordinate_transformations.hpp"
 
 #include <gtest/gtest.h>
 #include <cmath>

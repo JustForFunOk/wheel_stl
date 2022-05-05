@@ -11,19 +11,16 @@ buildifier(
 )
 
 cc_library(
-    name = "geographic_coordinate_transformations",
-    srcs = ["geographic_coordinate_transformations.cpp"],
-    hdrs = ["geographic_coordinate_transformations.hpp"],
-    deps = [
-        "@eigen",
-    ],
+    name = "geographic_coordinate_transformations_c",
+    srcs = ["geographic_coordinate_transformations.c"],
+    hdrs = ["geographic_coordinate_transformations.h"],
 )
 
 cc_test(
-    name = "test_geodetic2enu",
-    srcs = ["test_geodetic2enu.cpp"],
+    name = "test_geodetic2enu_c",
+    srcs = ["test_geodetic2enu_c.cpp"],
     deps = [
-        "geographic_coordinate_transformations",
+        "geographic_coordinate_transformations_c",
         "@gtest",
         "@gtest//:gtest_main",
     ],
