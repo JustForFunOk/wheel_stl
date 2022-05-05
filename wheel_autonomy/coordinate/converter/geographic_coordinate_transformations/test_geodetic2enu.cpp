@@ -81,13 +81,11 @@ TEST_F(Geodetic2ENUTest, fourth_region_Gps2Xy) {
       << gt_xy_coord.n_m;
 }
 
-// big distance failed
-// TEST_F(Geodetic2ENUTest, big_distance_cal) {
-//   const Geodetic input_gps_coord(31.2, 121.1);
-//   ENU output_xy_coord;
-//   converter_.Geodetic2ENU(input_gps_coord, output_xy_coord);
+TEST_F(Geodetic2ENUTest, big_distance_cal) {
+  const Geodetic input_gps_coord(31.2, 121.1, 0);
+  ENU output_xy_coord = converter_.Geodetic2ENU(input_gps_coord);
 
-//   ENU gt_xy_coord(-7914.244979, -9111.060729);
-//   EXPECT_NEAR(gt_xy_coord.e_m, output_xy_coord.e_m, 3.0);
-//   EXPECT_NEAR(gt_xy_coord.n_m, output_xy_coord.n_m, 3.0);
-// }
+  ENU gt_xy_coord(-7914.244979, -9111.060729, 0);
+  EXPECT_NEAR(gt_xy_coord.e_m, output_xy_coord.e_m, 1.0);
+  EXPECT_NEAR(gt_xy_coord.n_m, output_xy_coord.n_m, 1.0);
+}
