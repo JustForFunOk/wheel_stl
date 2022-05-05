@@ -10,3 +10,6 @@ jobs:
 
       - name: 'Bazel Build'
         run: bazel build ...
+
+      - name: 'Bazel Test'
+        run: bazel test ... --test_output=all
