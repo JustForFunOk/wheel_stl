@@ -26,7 +26,17 @@ typedef struct {
   double z_m;
 } ECEF;
 
+/** @brief Set a Geodetic point as the origin of ENU coordinate system.
+ * @param _geodetic_coord Geodetic coordinate
+ * @return  void
+ */
 extern void SetLocalOrigin(const Geodetic* _local_origin);
+
+/** @brief Convert Geodetic coordinate to ENU coordinate. Must Call
+ * SetLocalOrigin() before this API.
+ * @param _geodetic_coord Geodetic coordinate
+ * @return  ENU coordinate
+ */
 extern ENU Geodetic2ENU(const Geodetic* _geodetic_coord);
 
 #ifdef __cplusplus

@@ -1,11 +1,12 @@
 #include "geographic_coordinate_transformations.h"
 
 #include <math.h>  // sin cos pow M_PI
-#include <stdio.h>
 
 // Reference: https://en.wikipedia.org/wiki/World_Geodetic_System
 #define kWGS84EarthMajorAxisM 6378137.0            // a
 #define kWGS84EarthFlattening (1 / 298.257223563)  // f = (a-b)/a
+
+// Reference: https://en.wikipedia.org/wiki/Geographic_coordinate_conversion
 // e^2 = 1-(b^2)/(a^2) = f*(2-f)
 #define kE2 (kWGS84EarthFlattening * (2.0 - kWGS84EarthFlattening))
 
@@ -113,9 +114,6 @@ static void InitECEF2ENUMatrix(const Geodetic* _geodetic_coord) {
 
 void SetLocalOrigin(const Geodetic* _local_origin) {
   local_origin_ = Geodetic2ECEF(_local_origin);
-  // printf("local_origin_.x_m = %f", local_origin_.x_m);
-  // printf("local_origin_.y_m = %f", local_origin_.y_m);
-  // printf("local_origin_.z_m = %f", local_origin_.z_m);
 
   InitECEF2ENUMatrix(_local_origin);
 }
@@ -137,9 +135,9 @@ ENU Geodetic2ENU(const Geodetic* _geodetic_coord) {
   ECEF ecef_coord = Geodetic2ECEF(_geodetic_coord);
 
   // Step 2: Convert ECEF vector to ENU vector
-  double delta_x = ecef_coord.x_m - local_origin_.x_m;
-  double delta_y = ecef_coord.y_m - local_origin_.y_m;
-  double delta_z = ecef_coord.z_m - local_origin_.z_m;
+  const double delta_x = ecef_coord.x_m - local_origin_.x_m;
+  const double delta_y = ecef_coord.y_m - local_origin_.y_m;
+  const double delta_z = ecef_coord.z_m - local_origin_.z_m;
 
   double ecef_vector_3d[3][1];
   ecef_vector_3d[0][0] = delta_x;

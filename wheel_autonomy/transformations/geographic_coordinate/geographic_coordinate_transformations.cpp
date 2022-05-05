@@ -8,6 +8,7 @@ namespace {
 static const double kWGS84EarthMajorAxisM = 6378137.0;          // a
 static const double kWGS84EarthFlattening = 1 / 298.257223563;  // f = (a-b)/a
 
+// Reference: https://en.wikipedia.org/wiki/Geographic_coordinate_conversion
 // e^2 = 1-(b^2)/(a^2) = f*(2-f)
 static const double kE2 = kWGS84EarthFlattening * (2.0 - kWGS84EarthFlattening);
 
@@ -76,6 +77,9 @@ void LocalCoord::InitECEF2ENUMatrix(const Geodetic& _geodetic_coord) {
   const double sin_lambda = sin(lon_rad);  // sin(lambda)
   const double cos_lambda = cos(lon_rad);  // cos(lambda)
 
+  //  |     -sin_lambda            cos_lambda           0      |
+  //  | -sin_phi * cos_lambda  -sin_phi * sin_lambda  cos_phi  |
+  //  |  cos_phi * cos_lambda   cos_phi * sin_lambda  sin_phi  |
   ecef2enu_matrix_3d_ << -sin_lambda, cos_lambda, 0, -sin_phi * cos_lambda,
       -sin_phi * sin_lambda, cos_phi, cos_phi * cos_lambda,
       cos_phi * sin_lambda, sin_phi;
@@ -98,9 +102,9 @@ ENU LocalCoord::Geodetic2ENU(const Geodetic& _geodetic_coord) {
   ECEF ecef_coord = Geodetic2ECEF(_geodetic_coord);
 
   // Step 2: Convert ECEF vector to ENU vector
-  double delta_x = ecef_coord.x_m - local_origin_.x_m;
-  double delta_y = ecef_coord.y_m - local_origin_.y_m;
-  double delta_z = ecef_coord.z_m - local_origin_.z_m;
+  const double delta_x = ecef_coord.x_m - local_origin_.x_m;
+  const double delta_y = ecef_coord.y_m - local_origin_.y_m;
+  const double delta_z = ecef_coord.z_m - local_origin_.z_m;
   Eigen::Vector3d ecef_vector(delta_x, delta_y, delta_z);
 
   Eigen::Vector3d enu_vector = ecef2enu_matrix_3d_ * ecef_vector;
