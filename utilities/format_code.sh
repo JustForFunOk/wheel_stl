@@ -15,7 +15,7 @@ echo "Start clang-format for every file in current folder..."
 # SECONDS is bash builtin variable that tracks the number of seconds
 # that have passed since the shell was started
 SECONDS=0
-find $repo_path -type f -name "*.h" -or -name "*.cc" -or -name "*.cpp"\
+find $repo_path -type f -name "*.h" -or -name "*.cc" -or -name "*.cpp" -or -name "*.c" -or -name "*.hpp"\
   | grep -v $(printf -- "-f %s " $(find $repo_path -name \*.clangformatignore)) \
   | xargs clang-format -style=file -i '{}'  # Use -style=file to
                                             # load style configuration from .clang-format file
