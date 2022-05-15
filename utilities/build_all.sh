@@ -17,5 +17,15 @@ bazel build ... --disk_cache=~/.wheel_stl_bazel_cache
 bazel test ... --test_output=all
 
 # code coverage
-bazel coverage --instrument_test_targets --experimental_cc_coverage --combined_report=lcov --coverage_report_generator=@bazel_tools//tools/test/CoverageOutputGenerator/java/com/google/devtools/coverageoutputgenerator:Main  //wheel_autonomy/transformations/geographic_coordinate/...
-genhtml --output genhtml "$(bazel info output_path)/_coverage/_coverage_report.dat"
+# WARNING: Option 'javabase' is deprecated  (bazel version 5.1.1)
+# --javabase=@bazel_tools//tools/jdk:remote_jdk11 \
+bazel coverage \
+--instrument_test_targets \
+--experimental_cc_coverage \
+--combined_report=lcov \
+--coverage_report_generator=@bazel_tools//tools/test/CoverageOutputGenerator/java/com/google/devtools/coverageoutputgenerator:Main \
+--java_runtime_version=remotejdk_11 \
+//...
+
+# generate html to ./bazel-out/code_coverage folder
+genhtml --output ./bazel-out/code_coverage "$(bazel info output_path)/_coverage/_coverage_report.dat"

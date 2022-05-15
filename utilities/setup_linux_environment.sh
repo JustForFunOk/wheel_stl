@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Bazel
-
 function install_bazel_package(){
   sudo apt install apt-transport-https curl gnupg
   curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor > bazel.gpg
@@ -23,6 +22,9 @@ else
   echo 'Try update bazel...'
   update_bazel
 fi
+
+sudo apt install \
+gcovr  # code coverage for c/c++
 
 bazel --version
 echo 'Done!'
