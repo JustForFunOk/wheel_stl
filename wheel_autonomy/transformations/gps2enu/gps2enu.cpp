@@ -1,5 +1,4 @@
 #include "gps2enu.h"
-
 #include <cmath>  // sin cos pow M_PI
 
 namespace {
@@ -39,17 +38,13 @@ void Gps2Enu::Gps2Xy(const GpsCoord& _input_gps, XyCoord& _output_xy) {
   const double distance = sqrt(pow(d_N, 2) + pow(d_E, 2));
 
   double beta = 0;
-  if (d_N >= 0 && d_E > 0)  // first region
-  {
+  if (d_N >= 0 && d_E > 0) {  // first region
     beta = asin(d_N / distance);
-  } else if (d_N > 0 && d_E <= 0)  // second region
-  {
+  } else if (d_N > 0 && d_E <= 0) {  // second region
     beta = M_PI - asin(d_N / distance);
-  } else if (d_N <= 0 && d_E < 0)  // third region
-  {
+  } else if (d_N <= 0 && d_E < 0) {  // third region
     beta = M_PI - asin(d_N / distance);
-  } else if (d_N < 0 && d_E >= 0)  // fourth region
-  {
+  } else if (d_N < 0 && d_E >= 0) {  // fourth region
     beta = asin(d_N / distance);
   }
   double theta = beta + Deg2Rad(xy_coord_system_.z_rotate_deg);

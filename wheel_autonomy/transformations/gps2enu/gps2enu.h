@@ -32,7 +32,7 @@ class Gps2Enu {
    * x-axis and y-axis direction is the same as the direction of VCS(vehicle
    * coordinate system) in origin point.
    */
-  Gps2Enu(const GpsCoord& _origin, double _yaw_deg = -90.0);
+  explicit Gps2Enu(const GpsCoord& _origin, double _yaw_deg = -90.0);
 
   /** @brief Calculate the (x,y) coordinate of input GPS coordinate.
    * @param _input_gps Latitude and longitude of input GPS point.

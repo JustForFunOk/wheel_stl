@@ -1,7 +1,6 @@
-#include "gps2enu.h"
-
 #include <gtest/gtest.h>
 #include <cmath>
+#include "gps2enu.h"
 
 /** \example test_gps2enu.cpp
  * This is an example and test case of how to use the functions in gps2enu.h.
@@ -35,10 +34,8 @@ TEST_F(Gps2EnuTest, first_region_Gps2Xy) {
   gps2enu_test_.Gps2Xy(input_gps_coord, output_xy_coord);
 
   const XyCoord gt_xy_coord(636.343060, 681.333525);
-  EXPECT_NEAR(gt_xy_coord.x_m, output_xy_coord.x_m, 1.0)
-      << "The result of x from function Gps2Xy should be : " << gt_xy_coord.x_m;
-  EXPECT_NEAR(gt_xy_coord.y_m, output_xy_coord.y_m, 1.0)
-      << "The result of y from function Gps2Xy should be : " << gt_xy_coord.y_m;
+  EXPECT_NEAR(gt_xy_coord.x_m, output_xy_coord.x_m, 1.0);
+  EXPECT_NEAR(gt_xy_coord.y_m, output_xy_coord.y_m, 1.0);
 }
 
 TEST_F(Gps2EnuTest, second_region_Gps2Xy) {
@@ -47,10 +44,8 @@ TEST_F(Gps2EnuTest, second_region_Gps2Xy) {
   gps2enu_test_.Gps2Xy(input_gps_coord, output_xy_coord);
 
   const XyCoord gt_xy_coord(-1374.430058, 1345.098820);
-  EXPECT_NEAR(gt_xy_coord.x_m, output_xy_coord.x_m, 1.0)
-      << "The result of x from function Gps2Xy should be : " << gt_xy_coord.x_m;
-  EXPECT_NEAR(gt_xy_coord.y_m, output_xy_coord.y_m, 1.0)
-      << "The result of y from function Gps2Xy should be : " << gt_xy_coord.y_m;
+  EXPECT_NEAR(gt_xy_coord.x_m, output_xy_coord.x_m, 1.0);
+  EXPECT_NEAR(gt_xy_coord.y_m, output_xy_coord.y_m, 1.0);
 }
 
 TEST_F(Gps2EnuTest, third_region_Gps2Xy) {
@@ -59,10 +54,8 @@ TEST_F(Gps2EnuTest, third_region_Gps2Xy) {
   gps2enu_test_.Gps2Xy(input_gps_coord, output_xy_coord);
 
   const XyCoord gt_xy_coord(-1474.860395, -1255.334203);
-  EXPECT_NEAR(gt_xy_coord.x_m, output_xy_coord.x_m, 1.0)
-      << "The result of x from function Gps2Xy should be : " << gt_xy_coord.x_m;
-  EXPECT_NEAR(gt_xy_coord.y_m, output_xy_coord.y_m, 1.0)
-      << "The result of y from function Gps2Xy should be : " << gt_xy_coord.y_m;
+  EXPECT_NEAR(gt_xy_coord.x_m, output_xy_coord.x_m, 1.0);
+  EXPECT_NEAR(gt_xy_coord.y_m, output_xy_coord.y_m, 1.0);
 }
 
 TEST_F(Gps2EnuTest, fourth_region_Gps2Xy) {
@@ -71,10 +64,8 @@ TEST_F(Gps2EnuTest, fourth_region_Gps2Xy) {
   gps2enu_test_.Gps2Xy(input_gps_coord, output_xy_coord);
 
   XyCoord gt_xy_coord(3794.709618, -809.925359);
-  EXPECT_NEAR(gt_xy_coord.x_m, output_xy_coord.x_m, 1.0)
-      << "The result of x from function Gps2Xy should be : " << gt_xy_coord.x_m;
-  EXPECT_NEAR(gt_xy_coord.y_m, output_xy_coord.y_m, 1.0)
-      << "The result of y from function Gps2Xy should be : " << gt_xy_coord.y_m;
+  EXPECT_NEAR(gt_xy_coord.x_m, output_xy_coord.x_m, 1.0);
+  EXPECT_NEAR(gt_xy_coord.y_m, output_xy_coord.y_m, 1.0);
 }
 
 // big distance failed

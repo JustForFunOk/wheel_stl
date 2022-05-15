@@ -1,6 +1,5 @@
-#include "geographic_coordinate_transformations.hpp"
-
 #include <gtest/gtest.h>
+#include "geographic_coordinate_transformations.hpp"
 
 static const double kExpectedMaxError = 1E-3;
 
