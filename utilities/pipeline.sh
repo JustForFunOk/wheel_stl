@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function bazel_build() {
-  echo -e "\n---------------------bazel test-------------------------"
+  echo -e "\n---------------------bazel build------------------------"
   # build all
   bazel build ... --disk_cache=~/.wheel_stl_bazel_cache
 }
