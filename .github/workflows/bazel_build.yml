@@ -13,3 +13,6 @@ jobs:
 
       - name: 'Bazel Test'
         run: bazel test ... --test_output=all
+
+      - name: 'Code Coverage'
+        run: ./utilities/build_all.sh code_coverage
