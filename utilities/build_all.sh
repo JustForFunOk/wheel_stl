@@ -11,7 +11,13 @@ function unit_test() {
 }
 
 function code_coverage() {
-  echo "\n----------------------code coverage---------------------"
+  echo -e "\n----------------------code coverage---------------------"
+
+  # check gcov
+  gcov --version  # return 0 if gcov has installed
+  if [ $? -ne 0 ]; then
+    sudo apt install gcovr
+  fi
 
   # code coverage
   # 1
