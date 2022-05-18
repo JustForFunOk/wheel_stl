@@ -23,10 +23,14 @@ This project is really 'Just For Study'. Including the following aspects:
 ``` bash
 ./utilities/setup_<linux/macos>_environment.sh
 ```
-## Develop workflow
+### Develop workflow
 ``` bash
 ./utilities/build_all.sh
 ```
+
+### Commit with emoji
+Github and Gitlab all support display emoji in commit message. Check
+[gitmoji](https://gitmoji.dev) for emoji code.
 
 ## CICD Build & Run Environment
 
