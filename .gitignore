@@ -4,3 +4,6 @@ bazel-*
 
 # vscode config
 /.vscode/
+
+# Macos Finder
+.DS_Store
