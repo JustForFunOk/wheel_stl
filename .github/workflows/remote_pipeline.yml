@@ -2,7 +2,7 @@ name: 'CICD Workflows'
 on: [push]
 jobs:
   build-test-deploy:  # job id
-    name: 'Build code'
+    name: '🔧 -> 🧪 -> 📈 -> 🚀'
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout 🛎️'
@@ -16,3 +16,15 @@ jobs:
 
       - name: 'Code Coverage 📈'
         run: ./utilities/pipeline.sh code_coverage
+
+      # Deploy generated html file to github.io, so we can review code coverage in browser
+      - name: 'Deploy Coverage Report 🚀'
+        uses: JamesIves/github-pages-deploy-action@v4.3.3  # https://github.com/marketplace/actions/deploy-to-github-pages
+        with:
+          folder: bazel-out/code_coverage  # source folder
+          ssh-key: ${{ secrets.DEPLOY_KEY }}  # add public key to target repo, add private key to current repo
+          repository-name: JustForFunOk/JustForFunOk.github.io  # target repo
+          branch: wheel_code_coverage  # target branch (if not exist, action will create it)
+          # target-folder: .  ## specified target folder
+          single-commit: false  # keep all git history to compare code coverage diff
+          clean: true  # delete code coverage that already not exist
