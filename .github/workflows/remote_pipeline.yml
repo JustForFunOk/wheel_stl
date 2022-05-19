@@ -1,18 +1,18 @@
-name: 'Bazel Build Workflows'
+name: 'CICD Workflows'
 on: [push]
 jobs:
-  build_code:
+  build-test-deploy:  # job id
     name: 'Build code'
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout Code onto runner'
+      - name: 'Checkout 🛎️'
         uses: actions/checkout@v2 # https://github.com/marketplace/actions/checkout
 
-      - name: 'Bazel Build'
+      - name: 'Bazel Build 🔧'
         run: ./utilities/pipeline.sh bazel_build
 
-      - name: 'Bazel Test'
+      - name: 'Bazel Test 🧪'
         run: ./utilities/pipeline.sh unit_test
 
-      - name: 'Code Coverage'
+      - name: 'Code Coverage 📈'
         run: ./utilities/pipeline.sh code_coverage
