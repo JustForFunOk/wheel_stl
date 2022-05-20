@@ -41,6 +41,14 @@ function code_coverage() {
   genhtml --output ./bazel-out/code_coverage "$(bazel info output_path)/_coverage/_coverage_report.dat"
 }
 
+# workflow runner use UTC as default, change to china timezone
+function set_timezone() {
+  echo -e "\n----------------------set timezone---------------------"
+  echo -e "Before: $(date)"
+  sudo timedatectl set-timezone Asia/Shanghai
+  echo -e "After: $(date)"
+}
+
 # enable run function in command line
 # https://stackoverflow.com/questions/8818119/how-can-i-run-a-function-from-a-script-in-command-line
 # for example: ./pipeline.sh  code_coverage

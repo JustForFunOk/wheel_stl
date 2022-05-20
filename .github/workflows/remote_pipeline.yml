@@ -12,6 +12,9 @@ jobs:
       - name: 'Checkout 🛎️'
         uses: actions/checkout@v2 # https://github.com/marketplace/actions/checkout
 
+      - name: 'Set Timezone 🇨🇳 🕗'
+        run: ./utilities/pipeline.sh set_timezone
+
       - name: 'Bazel Build 🔧'
         run: ./utilities/pipeline.sh bazel_build
 
@@ -33,5 +36,5 @@ jobs:
           single-commit: false  # keep all git history to compare code coverage diff
           clean: true  # delete code coverage that already not exist
 
-# TODO
+# TODO List
 # 1. set runner timezone to UTC+8
