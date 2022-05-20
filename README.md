@@ -1,6 +1,6 @@
 # wheel_stl
 
-![Build Status](https://github.com/JustForFunOk/wheel_stl/actions/workflows/bazel_build.yml/badge.svg)
+[![CICD Workflows](https://github.com/JustForFunOk/wheel_stl/actions/workflows/remote_pipeline.yml/badge.svg)](https://github.com/JustForFunOk/wheel_stl/actions/workflows/remote_pipeline.yml)
 
 Reinventing the wheel of STL (Standard Template Library)
 
