@@ -1,11 +1,12 @@
+# Reference: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
 name: 'CICD Workflows'
 on:
   push:  # run pipeline when push commit
-    paths-ignore:  # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpushpull_requestpull_request_targetpathspaths-ignore
+    paths-ignore:
       # do not run pipeline when only change md file
       - '**.md'
 jobs:
-  build-test-deploy:  # job id
+  build_test_deploy:  # job id
     name: '🔧 -> 🧪 -> 📈 -> 🚀'
     runs-on: ubuntu-latest
     steps:
@@ -36,5 +37,20 @@ jobs:
           single-commit: false  # keep all git history to compare code coverage diff
           clean: true  # delete code coverage that already not exist
 
+  code_style_check:
+    name: '🎨'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout 🛎️'
+        uses: actions/checkout@v2 # https://github.com/marketplace/actions/checkout
+
+      - name: 'clang-format 🍴'
+        run: ./utilities/pipeline.sh clang_format
+
+      - name: 'cpplint 📌'
+        run: ./utilities/pipeline.sh cpplint
+
 # TODO List
-# 1. set runner timezone to UTC+8
+# 1. set runner timezone to UTC+8 (Done, Test pass)
+# 2. add cpplint and format check online (Done)
+# 3. enable code style check
