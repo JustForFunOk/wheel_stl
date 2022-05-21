@@ -1,5 +1,65 @@
 #!/bin/bash
 
+function install_clang_format() {
+  if [[ "$(uname -s)" == "Darwin"* ]]; then
+    echo "brew install clang-format"
+    brew install clang-format
+  else
+    echo "sudo apt install clang-format"
+    sudo apt install clang-format
+  fi
+}
+
+function cd_to_git_root_path() {
+  repo_path=$(git rev-parse --show-toplevel)
+  echo "Change current path to git root path: ${repo_path}"
+  cd ${repo_path}
+}
+
+function clang_format() {
+  echo -e "\n-------------------clang-format-------------------"
+
+  # Check clang-format is installed
+  if ! $(clang-format --version &>/dev/null); then
+    echo "Unable to locate clang-format. Start install clang-format..."
+    install_clang_format
+  else
+    echo "clang-format version: $(clang-format --version)"
+  fi
+
+  # cd to git root path
+  cd_to_git_root_path
+
+  echo "Start clang-format for every file in current folder..."
+  # SECONDS is bash builtin variable that tracks the number of seconds
+  # that have passed since the shell was started
+  SECONDS=0
+  find ${repo_path} -type f -name "*.h" -or -name "*.cc" -or -name "*.cpp" -or -name "*.c" -or -name "*.hpp"\
+    | grep -v $(printf -- "-f %s " $(find $repo_path -name \*.clangformatignore)) \
+    | xargs clang-format -style=file -i '{}'  # Use -style=file to
+                                              # load style configuration from .clang-format file
+  echo "End of clang-format..."
+  echo "Cost $SECONDS sec."
+}
+
+function cpplint() {
+  echo -e "\n----------------------cpplint---------------------"
+
+  # cd to git root path
+  cd_to_git_root_path
+
+  echo "Start cpplint..."
+  SECONDS=0
+  # grep -v to filt the file in .cpplintignore
+  find $repo_path -type f -name "*.h" -or -name "*.cc" -or -name "*.cpp"\
+    | grep -v $(printf -- "-f %s " $(find $repo_path -name \*.cpplintignore)) \
+    | xargs $repo_path/utilities/cpplint/cpplint.py --counting=detailed --quiet
+  echo "End of cpplint"
+
+  echo "Cost $SECONDS sec."
+}
+
+
 function bazel_build() {
   echo -e "\n---------------------bazel build------------------------"
   # build all

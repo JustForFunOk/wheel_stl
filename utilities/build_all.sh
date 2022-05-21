@@ -1,24 +1,28 @@
 #!/bin/bash
 
-# get the root path of git repository
-repo_path=$(git rev-parse --show-toplevel)
+# Exit immediately if a command failed
+set -e
 
+# Cd to the root path of git repository
+repo_path=$(git rev-parse --show-toplevel)
+echo "Current git root path: $repo_path"
 cd $repo_path
 
-echo "Current Path: $(pwd)"
-
 # Check code style
-./utilities/format_code.sh
+./utilities/pipeline.sh clang_format
 
-# build
+# Check cpplint
+./utilities/pipeline.sh cpplint
+
+# Bazel build
 ./utilities/pipeline.sh bazel_build
 
-# test
+# Bazel test
 ./utilities/pipeline.sh unit_test
 
-# code coverage
+# Code coverage
 if [[ "$(uname -s)" == "Darwin"* ]]; then
-  echo "[code coverage] does not work no macos, skip..."
+  echo -e "\n[code coverage] does not work no macos, skip..."
 else
   ./utilities/pipeline.sh code_coverage
 fi
