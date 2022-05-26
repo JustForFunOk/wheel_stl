@@ -1,27 +1,68 @@
 #!/bin/bash
 
+# echo with color
+# Reference: https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
+RED='\033[0;31m'    # Error
+YELLOW='\033[0;33m' # Warning
+GREEN='\033[0;32m'  # OK
+BLUE='\033[0;34m'   # Command
+PURPLE='\033[0;35m' # Remind
+NOCOLOR='\033[0m'  # remeber set NOCOLOR after use color echo
+
+# test color
+function test_color_echo() {
+  echo -e "${RED}RED${YELLOW}YELLOW${GREEN}GREEN${BLUE}BLUE${PURPLE}PURPLE${NOCOLOR}NOCOLOR"
+}
+
+function echo_warning() {
+  echo -e "${YELLOW}$1${NOCOLOR}"
+}
+
+function echo_error() {
+  echo -e "${RED}$1${NOCOLOR}"
+}
+
+function echo_command() {
+  echo -e "${BLUE}$1${NOCOLOR}"
+}
+
+function echo_remind() {
+  echo -e "${PURPLE}$1${NOCOLOR}"
+}
+
 function install_clang_format() {
   if [[ "$(uname -s)" == "Darwin"* ]]; then
-    echo "brew install clang-format"
+    echo_command "brew install clang-format"
     brew install clang-format
   else
-    echo "sudo apt install clang-format"
+    echo_command "sudo apt install clang-format"
     sudo apt install clang-format
+  fi
+}
+
+function install_cppcheck() {
+  if [[ "$(uname -s)" == "Darwin"* ]]; then
+    echo_command "brew install cppcheck"
+    brew install cppcheck
+  else
+    echo_command "sudo apt install cppcheck"
+    sudo apt install cppcheck
   fi
 }
 
 function cd_to_git_root_path() {
   repo_path=$(git rev-parse --show-toplevel)
-  echo "Change current path to git root path: ${repo_path}"
+  echo_command "cd ${repo_path}"
   cd ${repo_path}
 }
 
+# Forbid to use 'clang-format' as function name
 function clang_format() {
-  echo -e "\n-------------------clang-format-------------------"
+  echo_remind "\n-------------------clang-format-------------------"
 
   # Check clang-format is installed
-  if ! $(clang-format --version &>/dev/null); then
-    echo "Unable to locate clang-format. Start install clang-format..."
+  if ! $(clang-format --version >/dev/null); then
+    echo_warning "Unable to locate clang-format. Start install clang-format..."
     install_clang_format
   else
     echo "clang-format version: $(clang-format --version)"
@@ -34,50 +75,77 @@ function clang_format() {
   # SECONDS is bash builtin variable that tracks the number of seconds
   # that have passed since the shell was started
   SECONDS=0
-  find ${repo_path} -type f -name "*.h" -or -name "*.cc" -or -name "*.cpp" -or -name "*.c" -or -name "*.hpp"\
-    | grep -v $(printf -- "-f %s " $(find $repo_path -name \*.clangformatignore)) \
+  find . -type f -name "*.h" -or -name "*.cc" -or -name "*.cpp" -or -name "*.c" -or -name "*.hpp" \
+    | grep -v $(printf -- "-f %s " $(find . -name \*.clangformatignore)) \
     | xargs clang-format -style=file -i '{}'  # Use -style=file to
                                               # load style configuration from .clang-format file
   echo "End of clang-format..."
   echo "Cost $SECONDS sec."
 }
 
-function cpplint() {
-  echo -e "\n----------------------cpplint---------------------"
+function cpp_lint() {
+  echo_remind"\n----------------------cpplint---------------------"
 
   # cd to git root path
   cd_to_git_root_path
 
   echo "Start cpplint..."
   SECONDS=0
-  # grep -v to filt the file in .cpplintignore
-  find $repo_path -type f -name "*.h" -or -name "*.cc" -or -name "*.cpp"\
-    | grep -v $(printf -- "-f %s " $(find $repo_path -name \*.cpplintignore)) \
-    | xargs $repo_path/utilities/cpplint/cpplint.py --counting=detailed --quiet
+  # grep -v to filter the file in .cpplintignore
+  find . -type f -name "*.h" -or -name "*.cc" -or -name "*.cpp" -or -name "*.c" -or -name "*.hpp" \
+    | grep -v $(printf -- "-f %s " $(find . -name \*.cpplintignore)) \
+    | xargs ./utilities/cpplint/cpplint.py --counting=detailed --quiet
   echo "End of cpplint"
 
   echo "Cost $SECONDS sec."
 }
 
+# Forbid to use "cppcheck" as function name
+function cpp_check() {
+  echo_remind "\n----------------------cppcheck---------------------"
+
+  # Check cppcheck is installed
+  if ! $(cppcheck --version >/dev/null); then
+    echo_warning "Unable to locate cppcheck. Start install cppcheck..."
+    install_cppcheck
+  else
+    echo "cppcheck version: $(cppcheck --version)"
+  fi
+
+  # cd to git root path
+  cd_to_git_root_path
+
+  # cppcheck for the folder that contain BUILD file
+  # '-mindepth 2' filter the BUILD in root path
+  # 'xargs -n1 dirname' get the directory path
+  find . -mindepth 2 -type f -name BUILD | sort --unique  \
+    | grep -v $(printf -- "-f %s " $(find . -name \*.cppcheckignore)) | xargs -n1 dirname \
+    | xargs -I {} cppcheck {}
+}
+
 
 function bazel_build() {
-  echo -e "\n---------------------bazel build------------------------"
+  echo_remind "\n---------------------bazel build------------------------"
   # build all
+  echo_command "bazel build ... --disk_cache=~/.wheel_stl_bazel_cache"
   bazel build ... --disk_cache=~/.wheel_stl_bazel_cache
 }
 
 function unit_test() {
-  echo -e "\n----------------------unit test-------------------------"
+  echo_remind "\n----------------------unit test-------------------------"
   # run unit test
+  echo_command "bazel test ... --test_output=all"
   bazel test ... --test_output=all
 }
 
 function code_coverage() {
-  echo -e "\n----------------------code coverage---------------------"
+  echo_remind "\n----------------------code coverage---------------------"
 
   # check gcov
   gcovr --version  # return 0 if gcov has installed
   if [ $? -ne 0 ]; then
+    echo_warning "Unable to locate gcovr. Start install gcovr..."
+    echo_command "sudo apt install gcovr"
     sudo apt install gcovr
   fi
 
@@ -105,6 +173,7 @@ function code_coverage() {
 function set_timezone() {
   echo -e "\n----------------------set timezone---------------------"
   echo -e "Before: $(date)"
+  echo_command "sudo timedatectl set-timezone Asia/Shanghai"
   sudo timedatectl set-timezone Asia/Shanghai
   echo -e "After: $(date)"
 }
