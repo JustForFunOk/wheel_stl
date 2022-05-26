@@ -12,7 +12,10 @@ cd $repo_path
 ./utilities/pipeline.sh clang_format
 
 # Check cpplint
-./utilities/pipeline.sh cpplint
+./utilities/pipeline.sh cpp_lint
+
+# Check static code analysis
+./utilities/pipeline.sh cpp_check
 
 # Bazel build
 ./utilities/pipeline.sh bazel_build

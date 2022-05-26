@@ -48,7 +48,10 @@ jobs:
         run: ./utilities/pipeline.sh clang_format
 
       - name: 'cpplint 📌'
-        run: ./utilities/pipeline.sh cpplint
+        run: ./utilities/pipeline.sh cpp_lint
+
+      - name 'cppcheck ✅'
+        run: ./utilities/pipeline.sh cpp_check
 
 # TODO List
 # 1. set runner timezone to UTC+8 (Done, Test pass)
