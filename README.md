@@ -10,10 +10,12 @@ This project is really 'Just For Study'. Including the following aspects:
 
 * **the principle of STL**
 * project workflow
+  * CICD ([github action](https://docs.github.com/en/actions))
   * Style (clang-format, cpplint)
+  * Static code analysis ([cppcheck](https://cppcheck.sourceforge.io))
   * Build ([bazel](https://bazel.build/))
   * Test ([gtest](https://github.com/google/googletest))
-  * CICD ([github action](https://docs.github.com/en/actions))
+  * Code coverage (gcov, lcov)
   * ...
 
 
