@@ -50,7 +50,7 @@ jobs:
       - name: 'cpplint 📌'
         run: ./utilities/pipeline.sh cpp_lint
 
-      - name 'cppcheck ✅'
+      - name: 'cppcheck ✅'
         run: ./utilities/pipeline.sh cpp_check
 
 # TODO List
