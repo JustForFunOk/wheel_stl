@@ -11,6 +11,17 @@ namespace wheelstl {
 template <typename _Tp, std::size_t _Nm>
 class array {
   public:
+    // Member types
+    typedef _Tp                 value_type;
+    typedef value_type&         reference;
+    typedef const value_type&   const_reference;
+    typedef _Tp*                pointer;
+    typedef const _Tp*          const_pointer;
+    typedef _Tp*                iterator;
+    typedef const _Tp*          const_iterator;
+
+    tyoedef std::size_t           size_type;
+
 
     // Iterators
 
