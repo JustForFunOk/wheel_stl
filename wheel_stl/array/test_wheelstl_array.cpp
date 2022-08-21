@@ -6,35 +6,120 @@
 #include "wheel_stl/array/wheelstl_array.h"
 
 TEST(WheelStlArray, sizeof) {
-  std::array<int, 10> arr;
-  EXPECT_EQ(40, sizeof(arr));
+  wheelstl::array<int, 10> wheel_int_arr;
+  EXPECT_EQ(40, sizeof(wheel_int_arr));
 
-  wheelstl::array<int, 10> wheel_arr;
-  EXPECT_EQ(sizeof(arr), sizeof(wheel_arr));
+  wheelstl::array<char, 10> wheel_char_arr;
+  EXPECT_EQ(10, sizeof(wheel_char_arr));
+}
 
-  // corner case: empty array
-  wheelstl::array<int, 0> empty_arr;
-  EXPECT_EQ(0, sizeof(empty_arr));
+TEST(WheelStlArray, constructor) {
+  wheelstl::array<int, 5> wheel_arr{1,2,3,4,5};
+  wheelstl::array<int, 5> wheel_arr2 = {1,2,3,4,5};
+
+  EXPECT_EQ(20, sizeof(wheel_arr));
+  EXPECT_EQ(20, sizeof(wheel_arr2));
 }
 
 TEST(WheelStlArray, capability) {
-  wheelstl::array<int, 10> wheel_arr;
+  wheelstl::array<int*, 5> wheel_arr;
+  const wheelstl::array<char, 5> const_wheel_arr{'h','e','l','l','o'};
 
   // size
-  EXPECT_EQ(10, wheel_arr.size());
+  EXPECT_EQ(5, wheel_arr.size());
+  EXPECT_EQ(5, const_wheel_arr.size());
 
   // max_size
-  EXPECT_EQ(10, wheel_arr.max_size());
+  EXPECT_EQ(5, wheel_arr.max_size());
+  EXPECT_EQ(5, const_wheel_arr.max_size());
 
   // empty
   EXPECT_EQ(false, wheel_arr.empty());
-
-  wheelstl::array<int, 0> empty_arr;
-  EXPECT_EQ(true, empty_arr.empty());
+  EXPECT_EQ(false, const_wheel_arr.empty());
 }
 
 TEST(WheelStlArray, element_access) {
-  wheelstl::array<int, 10> wheel_arr;
+  {
+  wheelstl::array<int, 5> wheel_arr{1,2,3,4,5};
 
-  EXPECT_EQ(0, wheel_arr[0]);
+  // operator[]
+  wheel_arr[1] = 22;            // lvalue
+  EXPECT_EQ(22, wheel_arr[1]);  // rvalue
+
+  // at()
+  wheel_arr[2] = 33;               // lvalue
+  EXPECT_EQ(33, wheel_arr.at(2));  // rvalue
+
+  // front()
+  wheel_arr.front() = 11;            // lvalue
+  EXPECT_EQ(11, wheel_arr.front());  // rvalue
+
+  // end()
+  wheel_arr.back() = 55;             // lvalue
+  EXPECT_EQ(55, wheel_arr.back());   // rvalue
+
+  // data()
+  *(wheel_arr.data()+3) = 44;            // lvalue
+  EXPECT_EQ(44, *(wheel_arr.data()+3));  // rvalue
+  }
+
+  // const-qualified
+  {
+  const wheelstl::array<int, 5> wheel_arr{11,22,33,44,55};
+
+  // operator[]
+  EXPECT_EQ(22, wheel_arr[1]);  // rvalue
+
+  // at()
+  EXPECT_EQ(33, wheel_arr.at(2));  // rvalue
+
+  // front()
+  EXPECT_EQ(11, wheel_arr.front());  // rvalue
+
+  // end()
+  EXPECT_EQ(55, wheel_arr.back());   // rvalue
+
+  // data()
+  EXPECT_EQ(44, *(wheel_arr.data()+3));  // rvalue
+  }
 }
+
+TEST(WheelStlArray, iterators) {
+  {
+  wheelstl::array<int, 3> wheel_arr = {1,2,3};
+
+  // begin()  end()
+  std::for_each(wheel_arr.begin(), wheel_arr.end(), [](int& ele){ele--;});  // wheel_arr = {0,1,2};
+
+  // cbegin()  cend()
+  for (auto it = wheel_arr.cbegin(); it != wheel_arr.cend(); it++)
+  {
+    auto distance = std::distance(wheel_arr.cbegin(), it);
+    EXPECT_EQ(distance, *it);
+  }
+  }
+
+  {
+  wheelstl::array<int, 3> wheel_arr = {3,2,1};
+
+  // rbegin() rend()
+  std::for_each(wheel_arr.rbegin(), wheel_arr.rend(), [](int& ele){ele--;});  // wheel_arr = {2,1,0};
+
+  // crbegin()  cend()
+  for (auto it = wheel_arr.crbegin(); it != wheel_arr.crend(); it++)
+  {
+    auto distance = std::distance(wheel_arr.crbegin(), it);
+    EXPECT_EQ(distance, *it);
+  }
+  }
+}
+
+// corner case: empty array
+// 对于empty-array，不同版本各有自己的实现（linux版本sizeof为1，macos版本sizeof为4），sizeof无法保证。
+// TEST(WheelStlArray, empty_array) {
+//   wheelstl::array<int, 0> empty_arr;
+//   EXPECT_EQ(1, sizeof(empty_arr));
+  // wheelstl::array<int, 0> empty_arr;
+  // EXPECT_EQ(true, empty_arr.empty());
+// }
+
