@@ -2,4 +2,5 @@
 
 ROOT_PATH=$(git rev-parse --show-toplevel)
 
-bazel test //wheel_stl/array:test_wheelstl_array --test_output=all --cxxopt='-std=c++17'
+bazel test //wheel_stl/array:test_wheelstl_array --test_output=all
+# --cxxopt='-std=c++17'

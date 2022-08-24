@@ -1,14 +1,27 @@
 #pragma once
 
 /*
-why add const?
-warning: 'constexpr' non-static member function will not be implicitly 'const' in C++14; add 'const' to avoid a change in behavior [-Wconstexpr-not-const]
-
 noexcept
 at()函数由于会检查是否越界，会抛出异常，所以不能用noexcept修饰
 
+
 constexpr
 array size()在编译期间就能计算出来，所以用constexpr修改，减少运行时间
+c++17之前constexpr会隐式的为成员函数赋上const属性，
+因此
+constexpr reference front()
+constexpr reference front() const
+两者不能构成重载，C++17之后没有这个问题，因为这里编译指定使用C++17版本
+https://en.cppreference.com/w/cpp/container/array/begin
+
+C++14环境下编译会有如下提示
+warning: 'constexpr' non-static member function will not be implicitly 'const' in C++14; add 'const' to avoid a change in behavior [-Wconstexpr-not-const]
+
+
+移除了
+iterator begin() const
+iterator end() const
+上述两个完全可以用cbegin()和cend()代替，STL有兼容包袱，我又没有。
 
 */
 
