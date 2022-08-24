@@ -14,6 +14,7 @@ array size()在编译期间就能计算出来，所以用constexpr修改，减�
 
 #include <stdexcept>  // std::out_of_range
 #include <iterator>   // std::reverse_iterator
+#include <algorithm>  // std::fill_n  std::swap_ranges
 
 namespace wheelstl {
 
@@ -26,7 +27,7 @@ class array {
     typedef const value_type&   const_reference;
     typedef value_type*         pointer;
     typedef const value_type*   const_pointer;  // TODO: 为何这里不是_Tp const*或const _Tp const*?
-    typedef value_type*         iterator;       // TODO: 这里和pointer有啥区别？
+    typedef value_type*         iterator;       // TODO: 这里和pointer有啥区别？array和vector因为是连续空间，所以可以直接用指针来当iterator
     typedef const value_type*   const_iterator;
     typedef std::reverse_iterator<iterator>  reverse_iterator;
     typedef std::reverse_iterator<const_iterator>  const_reverse_iterator;
@@ -165,20 +166,34 @@ class array {
 
     // Modifiers
     void fill(const value_type& val) {
-        for (std::size_t i = 0UL; i < _Nm; ++i) {
-            data_[i] = val;
-        }
+        // 自己实现的版本
+        // for (std::size_t i = 0UL; i < _Nm; ++i) {
+        //     data_[i] = val;
+        // }
+
+        // 复用algorithm中的方法
+        std::fill_n(begin(), size(), val);
     }
 
-    void swap(array& x) {
-        array& tmp = x;
-        x = *this;
-        *this = tmp;
+    /**
+     * @brief 与另一个array交换array内的内容。
+     * 与其他容器不同，array之间交换元素的时间复杂度与array内元素数量有关，是O(n)
+     * @param x Another array container
+     */
+    void swap(array& x) {  // 要修改另一个array内的内容，所以不能用const
+        // 自己实现的版本
+        // array tmp = x;  // copy一份，注意不要使用array& tmp = x;
+        // x = *this;
+        // *this = tmp;
+
+        // 复用algorithm中的方法
+        std::swap_ranges(begin(), end(), x.begin());
     }
 
   public:
     // 为了使用列表初始化方法 array<int, 2> arr{1,2}; 需要将成员变量定义为public
     // 参考： https://en.cppreference.com/w/cpp/language/aggregate_initialization
+    // macos版本的也是直接将data暴露出来的
     _Tp data_[_Nm];
 };
 

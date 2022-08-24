@@ -14,11 +14,43 @@ TEST(WheelStlArray, sizeof) {
 }
 
 TEST(WheelStlArray, constructor) {
-  wheelstl::array<int, 5> wheel_arr{1,2,3,4,5};
-  wheelstl::array<int, 5> wheel_arr2 = {1,2,3,4,5};
+  // default constructor
+  wheelstl::array<int, 5> arr;
 
-  EXPECT_EQ(20, sizeof(wheel_arr));
-  EXPECT_EQ(20, sizeof(wheel_arr2));
+  // initialize list
+  wheelstl::array<int, 5> arr2{0,1,2,3,4};
+  wheelstl::array<int, 5> arr3 = {0,1,2,3,4};
+
+  // copy constructor
+  wheelstl::array<int, 5> arr4(arr2);
+  wheelstl::array<int, 5> arr5 = arr4;
+
+  // assign operator =
+  arr = arr5;
+
+  for(size_t i = 0UL; i < arr.size(); i++) {
+    EXPECT_EQ(i, arr[i]);
+    EXPECT_EQ(i, arr2[i]);
+    EXPECT_EQ(i, arr3[i]);
+    EXPECT_EQ(i, arr4[i]);
+    EXPECT_EQ(i, arr5[i]);
+  }
+
+  // move constructor
+  wheelstl::array<int, 5> arr6(std::move(arr5));
+
+  // move operator =
+  arr = std::move(arr4);
+
+  for(size_t i = 0UL; i < arr.size(); i++) {
+    EXPECT_EQ(i, arr[i]);
+    EXPECT_EQ(i, arr6[i]);
+
+    // array is still valid after move
+    EXPECT_EQ(i, arr5[i]);
+    EXPECT_EQ(i, arr4[i]);
+  }
+
 }
 
 TEST(WheelStlArray, capability) {
@@ -112,6 +144,31 @@ TEST(WheelStlArray, iterators) {
     EXPECT_EQ(distance, *it);
   }
   }
+}
+
+TEST(WheelStlArray, Modifiers) {
+  wheelstl::array<int, 6> arr;
+
+  // fill
+  arr.fill(5);
+  for(const auto ele : arr) {
+    EXPECT_EQ(5, ele);
+  }
+
+  wheelstl::array<int,5> first = {10, 20, 30, 40, 50};
+  wheelstl::array<int,5> second = {11, 22, 33, 44, 55};
+
+  wheelstl::array<int, 5> first_backup(first);
+  wheelstl::array<int, 5> second_backup(second);
+
+  // swap
+  first.swap(second);
+
+  for(std::size_t i = 0UL; i < first.size(); ++i) {
+    EXPECT_EQ(first[i], second_backup[i]);
+    EXPECT_EQ(second[i], first_backup[i]);
+  }
+
 }
 
 // corner case: empty array
