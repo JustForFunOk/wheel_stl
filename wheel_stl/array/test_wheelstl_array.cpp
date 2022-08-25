@@ -81,6 +81,7 @@ TEST(WheelStlArray, element_access) {
   // at()
   wheel_arr[2] = 33;               // lvalue
   EXPECT_EQ(33, wheel_arr.at(2));  // rvalue
+  EXPECT_ANY_THROW(wheel_arr.at(5));  // out of range
 
   // front()
   wheel_arr.front() = 11;            // lvalue
@@ -104,6 +105,7 @@ TEST(WheelStlArray, element_access) {
 
   // at()
   EXPECT_EQ(33, wheel_arr.at(2));  // rvalue
+  EXPECT_ANY_THROW(wheel_arr.at(5));  // out of range
 
   // front()
   EXPECT_EQ(11, wheel_arr.front());  // rvalue
@@ -172,11 +174,32 @@ TEST(WheelStlArray, Modifiers) {
 }
 
 // corner case: empty array
-// 对于empty-array，不同版本各有自己的实现（linux版本sizeof为1，macos版本sizeof为4），sizeof无法保证。
-// TEST(WheelStlArray, empty_array) {
-//   wheelstl::array<int, 0> empty_arr;
-//   EXPECT_EQ(1, sizeof(empty_arr));
-  // wheelstl::array<int, 0> empty_arr;
-  // EXPECT_EQ(true, empty_arr.empty());
-// }
+
+TEST(WheelStlArray, empty_array) {
+  wheelstl::array<int, 0> empty_arr;
+
+  // sizeof
+  // 对于empty-array，不同版本各有自己的实现（linux版本sizeof为1，macos版本sizeof为4），sizeof无法保证。
+  // EXPECT_EQ(1, sizeof(empty_arr));
+
+  // iterators
+  EXPECT_EQ(nullptr, empty_arr.begin());
+  EXPECT_EQ(nullptr, empty_arr.end());
+
+  EXPECT_EQ(empty_arr.rend(), empty_arr.rbegin());
+
+  EXPECT_EQ(nullptr, empty_arr.cbegin());
+  EXPECT_EQ(nullptr, empty_arr.cend());
+
+  EXPECT_EQ(empty_arr.crend(), empty_arr.crbegin());
+
+  // capability
+  EXPECT_EQ(0, empty_arr.size());
+  EXPECT_EQ(0, empty_arr.max_size());
+  EXPECT_EQ(true, empty_arr.empty());
+
+  // element access
+
+  // modifier
+}
 
