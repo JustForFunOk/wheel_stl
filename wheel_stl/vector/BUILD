@@ -11,15 +11,6 @@ buildifier(
 )
 
 cc_test(
-    name = "test_official_vector",
-    srcs = ["test_official_vector.cpp"],
-    deps = [
-        "@gtest",
-        "@gtest//:gtest_main",
-    ],
-)
-
-cc_test(
     name = "test_wheelstl_vector",
     srcs = ["test_wheelstl_vector.cpp",
         "wheelstl_vector.h"
