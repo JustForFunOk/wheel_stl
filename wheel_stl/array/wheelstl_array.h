@@ -62,7 +62,7 @@ class array {
     // No explicit Constructor & Destructor
 
     // Iterators
-    iterator begin() noexcept {
+    constexpr iterator begin() noexcept {
         return iterator(data());
     }
 
