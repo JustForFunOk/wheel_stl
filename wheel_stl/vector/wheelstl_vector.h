@@ -94,8 +94,40 @@ class vector {
   }
 
   // Capability
-  size_type size() const{
+  size_type size() const noexcept {
     return cend() - cbegin();
+  }
+
+  size_type max_size() const {
+
+  }
+
+  void resize(size_type _n) {
+
+  }
+
+  void resize(size_type _n, const value_type& _val) {
+
+  }
+
+  size_type capability() const noexcept {
+    
+  }
+
+  bool empty() const noexcept{
+
+  }
+
+  void reserve(size_type _n) {
+
+  }
+
+  /**
+   * @brief Request the container to reduce its capability to fit its size
+   * shrink 缩减
+   */
+  void shrink_to_fit() {
+
   }
 
   // Element access
@@ -103,15 +135,86 @@ class vector {
    * @brief operator []
    * @param n the n-th element of vector
    */
-  T& operator[](size_t n) { return *(start_ + n); }
+  reference operator[](size_type _n) noexcept{
+    return *(start_ + n);
+  }
 
-  /**
-   * @brief get the first iterator of vector
-   */
-  T* begin() { return start_; }
+  const_reference operator[](size_type _n) const noexcept {
+
+  }
+
+  reference at(size_type _n) {
+
+  }
+
+  const_reference at(size_type _n) const {
+
+  }
+
+  reference front() noexcept {
+
+  }
+
+  const_reference front() const noexcept {
+
+  }
+
+  reference back() noexcept {
+
+  }
+
+  const_reference back() const noexcept {
+
+  }
+
+  pointer data() noexcept {
+
+  }
+
+  const_pointer data() const noexcept {
+
+  }
 
   // Modifiers
+  // assign
 
+  void push_back(const value_type& _val) {
+
+  }
+
+  void push_back(value_type&& _val) {
+
+  }
+
+  void pop_back() {
+
+  }
+
+  // insert
+
+  // erase
+
+  void swap(vector& _another_vec) {
+
+  }
+
+  void clear() noexcept {
+
+  }
+
+  // emplace
+
+  /**
+   * @brief Inserts a new element at the end of the vector
+   * push_back, which either copies or moves an existing object into the container.
+   * emplace_back可以直接调用构造函数，push_back会先构造，再拷贝
+   * 哪些情况下emplace_back会更快？
+   * 该函数的声明格式？
+   */
+  template <class... Args>
+  void emplace_back(Args&&... args) {
+
+  }
 
  private:
   /**
