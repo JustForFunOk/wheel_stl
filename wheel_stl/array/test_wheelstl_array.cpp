@@ -1,7 +1,7 @@
 
 #include <gtest/gtest.h>
-#include <iostream>
 #include <array>
+#include <iostream>
 
 #include "wheel_stl/array/wheelstl_array.h"
 
@@ -18,8 +18,8 @@ TEST(WheelStlArray, constructor) {
   wheelstl::array<int, 5> arr;
 
   // initialize list
-  wheelstl::array<int, 5> arr2{0,1,2,3,4};
-  wheelstl::array<int, 5> arr3 = {0,1,2,3,4};
+  wheelstl::array<int, 5> arr2{0, 1, 2, 3, 4};
+  wheelstl::array<int, 5> arr3 = {0, 1, 2, 3, 4};
 
   // copy constructor
   wheelstl::array<int, 5> arr4(arr2);
@@ -28,7 +28,7 @@ TEST(WheelStlArray, constructor) {
   // assign operator =
   arr = arr5;
 
-  for(size_t i = 0UL; i < arr.size(); i++) {
+  for (size_t i = 0UL; i < arr.size(); i++) {
     EXPECT_EQ(i, arr[i]);
     EXPECT_EQ(i, arr2[i]);
     EXPECT_EQ(i, arr3[i]);
@@ -42,7 +42,7 @@ TEST(WheelStlArray, constructor) {
   // move operator =
   arr = std::move(arr4);
 
-  for(size_t i = 0UL; i < arr.size(); i++) {
+  for (size_t i = 0UL; i < arr.size(); i++) {
     EXPECT_EQ(i, arr[i]);
     EXPECT_EQ(i, arr6[i]);
 
@@ -50,12 +50,11 @@ TEST(WheelStlArray, constructor) {
     EXPECT_EQ(i, arr5[i]);
     EXPECT_EQ(i, arr4[i]);
   }
-
 }
 
 TEST(WheelStlArray, capability) {
   wheelstl::array<int*, 5> wheel_arr;
-  const wheelstl::array<char, 5> const_wheel_arr{'h','e','l','l','o'};
+  const wheelstl::array<char, 5> const_wheel_arr{'h', 'e', 'l', 'l', 'o'};
 
   // size
   EXPECT_EQ(5, wheel_arr.size());
@@ -72,79 +71,81 @@ TEST(WheelStlArray, capability) {
 
 TEST(WheelStlArray, element_access) {
   {
-  wheelstl::array<int, 5> wheel_arr{1,2,3,4,5};
+    wheelstl::array<int, 5> wheel_arr{1, 2, 3, 4, 5};
 
-  // operator[]
-  wheel_arr[1] = 22;            // lvalue
-  EXPECT_EQ(22, wheel_arr[1]);  // rvalue
+    // operator[]
+    wheel_arr[1] = 22;            // lvalue
+    EXPECT_EQ(22, wheel_arr[1]);  // rvalue
 
-  // at()
-  wheel_arr[2] = 33;               // lvalue
-  EXPECT_EQ(33, wheel_arr.at(2));  // rvalue
-  EXPECT_ANY_THROW(wheel_arr.at(5));  // out of range
+    // at()
+    wheel_arr[2] = 33;                  // lvalue
+    EXPECT_EQ(33, wheel_arr.at(2));     // rvalue
+    EXPECT_ANY_THROW(wheel_arr.at(5));  // out of range
 
-  // front()
-  wheel_arr.front() = 11;            // lvalue
-  EXPECT_EQ(11, wheel_arr.front());  // rvalue
+    // front()
+    wheel_arr.front() = 11;            // lvalue
+    EXPECT_EQ(11, wheel_arr.front());  // rvalue
 
-  // end()
-  wheel_arr.back() = 55;             // lvalue
-  EXPECT_EQ(55, wheel_arr.back());   // rvalue
+    // end()
+    wheel_arr.back() = 55;            // lvalue
+    EXPECT_EQ(55, wheel_arr.back());  // rvalue
 
-  // data()
-  *(wheel_arr.data()+3) = 44;            // lvalue
-  EXPECT_EQ(44, *(wheel_arr.data()+3));  // rvalue
+    // data()
+    *(wheel_arr.data() + 3) = 44;            // lvalue
+    EXPECT_EQ(44, *(wheel_arr.data() + 3));  // rvalue
   }
 
   // const-qualified
   {
-  const wheelstl::array<int, 5> wheel_arr{11,22,33,44,55};
+    const wheelstl::array<int, 5> wheel_arr{11, 22, 33, 44, 55};
 
-  // operator[]
-  EXPECT_EQ(22, wheel_arr[1]);  // rvalue
+    // operator[]
+    EXPECT_EQ(22, wheel_arr[1]);  // rvalue
 
-  // at()
-  EXPECT_EQ(33, wheel_arr.at(2));  // rvalue
-  EXPECT_ANY_THROW(wheel_arr.at(5));  // out of range
+    // at()
+    EXPECT_EQ(33, wheel_arr.at(2));     // rvalue
+    EXPECT_ANY_THROW(wheel_arr.at(5));  // out of range
 
-  // front()
-  EXPECT_EQ(11, wheel_arr.front());  // rvalue
+    // front()
+    EXPECT_EQ(11, wheel_arr.front());  // rvalue
 
-  // end()
-  EXPECT_EQ(55, wheel_arr.back());   // rvalue
+    // end()
+    EXPECT_EQ(55, wheel_arr.back());  // rvalue
 
-  // data()
-  EXPECT_EQ(44, *(wheel_arr.data()+3));  // rvalue
+    // data()
+    EXPECT_EQ(44, *(wheel_arr.data() + 3));  // rvalue
   }
 }
 
 TEST(WheelStlArray, iterators) {
   {
-  wheelstl::array<int, 3> wheel_arr = {1,2,3};
+    wheelstl::array<int, 3> wheel_arr = {1, 2, 3};
 
-  // begin()  end()
-  std::for_each(wheel_arr.begin(), wheel_arr.end(), [](int& ele){ele--;});  // wheel_arr = {0,1,2};
+    // begin()  end()
+    std::for_each(wheel_arr.begin(), wheel_arr.end(), [](int& ele) {
+      ele--;
+    });  // wheel_arr = {0,1,2};
 
-  // cbegin()  cend()
-  for (auto it = wheel_arr.cbegin(); it != wheel_arr.cend(); it++)
-  {
-    auto distance = std::distance(wheel_arr.cbegin(), it);
-    EXPECT_EQ(distance, *it);
+    // cbegin()  cend()
+    for (auto it = wheel_arr.cbegin(); it != wheel_arr.cend(); it++) {
+      auto distance = std::distance(wheel_arr.cbegin(), it);
+      EXPECT_EQ(distance, *it);
+    }
   }
-  }
 
   {
-  wheelstl::array<int, 3> wheel_arr = {3,2,1};
+    wheelstl::array<int, 3> wheel_arr = {3, 2, 1};
 
-  // rbegin() rend()
-  std::for_each(wheel_arr.rbegin(), wheel_arr.rend(), [](int& ele){ele--;});  // wheel_arr = {2,1,0};
+    // rbegin() rend()
+    std::for_each(wheel_arr.rbegin(), wheel_arr.rend(), [](int& ele) {
+      ele--;
+    });  // wheel_arr = {2,1,0};
 
-  // crbegin()  cend()
-  for (auto it = wheel_arr.crbegin(); it != wheel_arr.crend(); it++)
-  {
-    auto distance = std::distance(wheel_arr.crbegin(), it);
-    EXPECT_EQ(distance, *it);
-  }
+    // crbegin()  cend()
+    for (auto it = wheel_arr.crbegin(); it != wheel_arr.crend(); it++) {
+      auto distance = std::distance(wheel_arr.crbegin(), it);
+      EXPECT_EQ(distance, *it);
+    }
   }
 }
 
@@ -153,12 +154,12 @@ TEST(WheelStlArray, Modifiers) {
 
   // fill
   arr.fill(5);
-  for(const auto ele : arr) {
+  for (const auto ele : arr) {
     EXPECT_EQ(5, ele);
   }
 
-  wheelstl::array<int,5> first = {10, 20, 30, 40, 50};
-  wheelstl::array<int,5> second = {11, 22, 33, 44, 55};
+  wheelstl::array<int, 5> first  = {10, 20, 30, 40, 50};
+  wheelstl::array<int, 5> second = {11, 22, 33, 44, 55};
 
   wheelstl::array<int, 5> first_backup(first);
   wheelstl::array<int, 5> second_backup(second);
@@ -166,11 +167,10 @@ TEST(WheelStlArray, Modifiers) {
   // swap
   first.swap(second);
 
-  for(std::size_t i = 0UL; i < first.size(); ++i) {
+  for (std::size_t i = 0UL; i < first.size(); ++i) {
     EXPECT_EQ(first[i], second_backup[i]);
     EXPECT_EQ(second[i], first_backup[i]);
   }
-
 }
 
 // corner case: empty array
@@ -202,4 +202,3 @@ TEST(WheelStlArray, empty_array) {
 
   // modifier
 }
-

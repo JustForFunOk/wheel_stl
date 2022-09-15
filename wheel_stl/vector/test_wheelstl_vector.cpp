@@ -34,9 +34,9 @@ TEST(WheelStlVector, constructor) {
 
   // special test, negative number of element
   {
-    // TODO(sj): how to test this suitation?
-    // std::vector<int> vec(-1);  // this will throw exception
-    // EXPECT_EQ(-1, vec.size());
+      // TODO(sj): how to test this suitation?
+      // std::vector<int> vec(-1);  // this will throw exception
+      // EXPECT_EQ(-1, vec.size());
   }
 
   {

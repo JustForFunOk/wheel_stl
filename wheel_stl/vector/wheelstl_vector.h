@@ -6,7 +6,7 @@
 */
 
 #include <iterator>  // std::reverse_iterator
-#include <memory>  // std::allocator
+#include <memory>    // std::allocator
 
 namespace wheelstl {
 
@@ -14,17 +14,17 @@ template <typename _Tp, typename Alloc = std::allocator<_Tp>>
 class vector {
  public:
   // Member types
-  typedef _Tp                value_type;
-  typedef Alloc              allocator_type;
-  typedef value_type&        reference;
-  typedef const value_type&  const_reference;
-  typedef value_type*        pointer;
-  typedef const value_type*  const_pointer;
-  typedef value_type*        iterator;
-  typedef const value_type*  const_iterator;
+  typedef _Tp value_type;
+  typedef Alloc allocator_type;
+  typedef value_type& reference;
+  typedef const value_type& const_reference;
+  typedef value_type* pointer;
+  typedef const value_type* const_pointer;
+  typedef value_type* iterator;
+  typedef const value_type* const_iterator;
   typedef std::reverse_iterator<iterator> reverse_iterator;
   typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
-  typedef std::size_t        size_type;
+  typedef std::size_t size_type;
 
   // Constructor
   // empty container constructor
@@ -61,29 +61,17 @@ class vector {
   }
 
   // Iterators
-  iterator begin() noexcept {
-    return iterator(start_);
-  }
+  iterator begin() noexcept { return iterator(start_); }
 
-  iterator end() noexcept {
-    return iterator(end_);
-  }
+  iterator end() noexcept { return iterator(end_); }
 
-  reverse_iterator rbegin() noexcept {
-    return reverse_iterator(end());
-  }
+  reverse_iterator rbegin() noexcept { return reverse_iterator(end()); }
 
-  reverse_iterator rend() noexcept {
-    return reverse_iterator(begin());
-  }
+  reverse_iterator rend() noexcept { return reverse_iterator(begin()); }
 
-  const_iterator cbegin() const noexcept {
-    return const_iterator(start_);
-  }
+  const_iterator cbegin() const noexcept { return const_iterator(start_); }
 
-  const_iterator cend() const noexcept {
-    return const_iterator(end_)
-  }
+  const_iterator cend() const noexcept {return const_iterator(end_)}
 
   const_reverse_iterator crbegin() const noexcept {
     return const_reverse_iterator(cend());
@@ -94,127 +82,79 @@ class vector {
   }
 
   // Capability
-  size_type size() const noexcept {
-    return cend() - cbegin();
-  }
+  size_type size() const noexcept { return cend() - cbegin(); }
 
-  size_type max_size() const {
+  size_type max_size() const {}
 
-  }
+  void resize(size_type _n) {}
 
-  void resize(size_type _n) {
+  void resize(size_type _n, const value_type& _val) {}
 
-  }
+  size_type capability() const noexcept {}
 
-  void resize(size_type _n, const value_type& _val) {
+  bool empty() const noexcept {}
 
-  }
-
-  size_type capability() const noexcept {
-    
-  }
-
-  bool empty() const noexcept{
-
-  }
-
-  void reserve(size_type _n) {
-
-  }
+  void reserve(size_type _n) {}
 
   /**
    * @brief Request the container to reduce its capability to fit its size
    * shrink 缩减
    */
-  void shrink_to_fit() {
-
-  }
+  void shrink_to_fit() {}
 
   // Element access
   /**
    * @brief operator []
    * @param n the n-th element of vector
    */
-  reference operator[](size_type _n) noexcept{
-    return *(start_ + n);
-  }
+  reference operator[](size_type _n) noexcept { return *(start_ + n); }
 
-  const_reference operator[](size_type _n) const noexcept {
+  const_reference operator[](size_type _n) const noexcept {}
 
-  }
+  reference at(size_type _n) {}
 
-  reference at(size_type _n) {
+  const_reference at(size_type _n) const {}
 
-  }
+  reference front() noexcept {}
 
-  const_reference at(size_type _n) const {
+  const_reference front() const noexcept {}
 
-  }
+  reference back() noexcept {}
 
-  reference front() noexcept {
+  const_reference back() const noexcept {}
 
-  }
+  pointer data() noexcept {}
 
-  const_reference front() const noexcept {
-
-  }
-
-  reference back() noexcept {
-
-  }
-
-  const_reference back() const noexcept {
-
-  }
-
-  pointer data() noexcept {
-
-  }
-
-  const_pointer data() const noexcept {
-
-  }
+  const_pointer data() const noexcept {}
 
   // Modifiers
   // assign
 
-  void push_back(const value_type& _val) {
+  void push_back(const value_type& _val) {}
 
-  }
+  void push_back(value_type&& _val) {}
 
-  void push_back(value_type&& _val) {
-
-  }
-
-  void pop_back() {
-
-  }
+  void pop_back() {}
 
   // insert
 
   // erase
 
-  void swap(vector& _another_vec) {
+  void swap(vector& _another_vec) {}
 
-  }
-
-  void clear() noexcept {
-
-  }
+  void clear() noexcept {}
 
   // emplace
 
   /**
    * @brief Inserts a new element at the end of the vector
-   * push_back, which either copies or moves an existing object into the container.
-   * emplace_back可以直接调用构造函数，push_back会先构造，再拷贝
+   * push_back, which either copies or moves an existing object into the
+   * container. emplace_back可以直接调用构造函数，push_back会先构造，再拷贝
    * 哪些情况下emplace_back会更快？
    * 该函数的声明格式？
    */
   template <class... Args>
-  void emplace_back(Args&&... args) {
-
-  }
+  void emplace_back(Args&&... args) {}
 
  private:
   /**
