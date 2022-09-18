@@ -13,9 +13,21 @@
 
 namespace wheelautonomy {
 
-// forward declare, because Point2 depends on Polygon2
+// forward declare
+template <typename _Tp>
+class Point2;
+
+using Point2d = Point2<double>;
+
+template <typename _Tp>
+class LineSegment2;
+
+using LineSegment2d = LineSegment2<double>;
+
 template <typename _Tp>
 class Polygon2;
+
+using Polygon2d = Polygon2<double>;
 
 /** @brief reference:
 https://github.com/opencv/opencv/blob/4.x/modules/core/include/opencv2/core/types.hpp
@@ -42,6 +54,7 @@ class Point2 {
   Point2(_Tp _x, _Tp _y) : x(_x), y(_y) {}
 
   /// geometry
+  int IsLeft();
 
   /**
    * @brief Check whether the point is inside a polygon
@@ -58,7 +71,20 @@ class Point2 {
   _Tp y;
 };
 
-using Point2d = Point2<double>;
+template <typename _Tp>
+class LineSegment2 {
+ public:
+  LineSegment() {}
+  LineSegment(Point2<_Tp> _start_pt, Point2<_Tp> _end_pt)
+      : start_point_(_start_pt), end_point_(_end_pt) {}
+  LineSegment(_Tp _start_pt_x, _Tp _start_pt_y, _Tp _end_pt_x, _Tp _end_pt_y)
+      : start_point_(_start_pt_x, _start_pt_y),
+        end_point_(_end_pt_x, _end_pt_y) {}
+
+ public:
+  Point2<_Tp> start_point_;
+  Point2<_Tp> end_point_;
+};
 
 /**
  * @brief last point is same as first point

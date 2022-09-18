@@ -20,3 +20,14 @@ cc_test(
         "@gtest//:gtest_main",
     ],
 )
+
+cc_test(
+    name = "test_math",
+    srcs = ["test_math.cpp",
+        "math.h"
+    ],
+    deps = [
+        "@gtest",
+        "@gtest//:gtest_main",
+    ],
+)
