@@ -12,6 +12,8 @@ class LineSegment2 {
   LineSegment2(const Point2<_Tp>& _start_pt, const Point2<_Tp>& _end_pt);
   LineSegment2(_Tp _start_pt_x, _Tp _start_pt_y, _Tp _end_pt_x, _Tp _end_pt_y);
 
+  bool IsPointOnLeft(const Point2<_Tp>& _point);
+
  protected:
   Point2<_Tp> start_point_;
   Point2<_Tp> end_point_;

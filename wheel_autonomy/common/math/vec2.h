@@ -1,17 +1,34 @@
 #pragma once
 
-#include "wheel_autonomy/common/math/point2.h"
+// #include "wheel_autonomy/common/math/point2.h"
 
 namespace wheel_autonomy {
 namespace common {
 namespace math {
+
+/** @brief reference:
+https://github.com/opencv/opencv/blob/4.x/modules/core/include/opencv2/core/types.hpp
+
+pt1 = pt2 + pt3;
+pt1 = pt2 - pt3;
+pt1 = pt2 * a;
+pt1 = a * pt2;
+pt1 = pt2 / a;
+pt1 += pt2;
+pt1 -= pt2;
+pt1 *= a;
+pt1 /= a;
+double value = norm(pt); // L2 norm
+pt1 == pt2;
+pt1 != pt2;
+
+*/
 
 template <typename _Tp>
 class Vec2 {
  public:
   Vec2() {}
   Vec2(_Tp _x, _Tp _y) : x(_x), y(_y) {}
-  Vec2(const Point2<_Tp>& _start_pt, const Point2<_Tp>& _end_pt);
 
   /**
    * @brief https://en.wikipedia.org/wiki/Dot_product
@@ -37,12 +54,6 @@ class Vec2 {
 using Vec2d = Vec2<double>;
 
 /////////////////////////////////Implement/////////////////////////////////////
-
-template <typename _Tp>
-Vec2<_Tp>::Vec2(const Point2<_Tp>& _start_pt, const Point2<_Tp>& _end_pt) {
-  this->x = _end_pt.x - _start_pt.x;
-  this->y = _end_pt.y - _start_pt.y;
-}
 
 template <typename _Tp>
 _Tp Vec2<_Tp>::DotProduct(const Vec2<_Tp>& _another) const {

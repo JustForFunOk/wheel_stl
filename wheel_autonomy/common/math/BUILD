@@ -12,12 +12,9 @@ buildifier(
 
 
 cc_library(
-    name = "line_segment2",
+    name = "vec2",
     hdrs = [
-        "line_segment2.h",
-    ],
-    deps = [
-        ":point2"
+        "vec2.h",
     ],
 )
 
@@ -25,6 +22,19 @@ cc_library(
     name = "point2",
     hdrs = [
         "point2.h",
+    ],
+    deps = [
+        ":vec2",
+    ],
+)
+
+cc_library(
+    name = "line_segment2",
+    hdrs = [
+        "line_segment2.h",
+    ],
+    deps = [
+        ":point2",
     ],
 )
 
@@ -34,19 +44,12 @@ cc_library(
         "polygon2.h",
     ],
     deps = [
-        ":point2"
+        ":point2",
+        ":line_segment2",
     ],
 )
 
-cc_library(
-    name = "vec2",
-    hdrs = [
-        "vec2.h",
-    ],
-    deps = [
-        ":point2"
-    ],
-)
+######################################TEST#####################################
 
 cc_test(
     name = "vec2_test",
@@ -58,5 +61,29 @@ cc_test(
         "@gtest//:gtest_main",
         "@eigen",
         ":vec2"
+    ],
+)
+
+cc_test(
+    name = "line_segment2_test",
+    srcs = [
+        "line_segment2_test.cpp",
+    ],
+    deps = [
+        "@gtest",
+        "@gtest//:gtest_main",
+        ":line_segment2"
+    ],
+)
+
+cc_test(
+    name = "polygon2_test",
+    srcs = [
+        "polygon2_test.cpp",
+    ],
+    deps = [
+        "@gtest",
+        "@gtest//:gtest_main",
+        ":polygon2"
     ],
 )

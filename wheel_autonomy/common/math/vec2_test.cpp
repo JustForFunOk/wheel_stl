@@ -12,11 +12,11 @@ TEST(Vec2d, Constructor) {
   EXPECT_DOUBLE_EQ(1.0, b.x);
   EXPECT_DOUBLE_EQ(1.0, b.y);
 
-  Point2d start_pt(1.0, 1.0);
-  Point2d end_pt(2.0, 2.0);
-  Vec2d c(start_pt, end_pt);
-  EXPECT_DOUBLE_EQ(1.0, c.x);
-  EXPECT_DOUBLE_EQ(1.0, c.y);
+  // Point2d start_pt(1.0, 1.0);
+  // Point2d end_pt(2.0, 2.0);
+  // Vec2d c(start_pt, end_pt);
+  // EXPECT_DOUBLE_EQ(1.0, c.x);
+  // EXPECT_DOUBLE_EQ(1.0, c.y);
 }
 
 TEST(Vec2d, DotProduct) {

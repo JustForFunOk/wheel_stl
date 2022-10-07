@@ -1,5 +1,3 @@
-#pragma once
-
 #include "wheel_autonomy/common/math/line_segment2.h"
 
 #include <gtest/gtest.h>
