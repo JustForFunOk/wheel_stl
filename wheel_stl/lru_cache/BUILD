@@ -11,23 +11,21 @@ buildifier(
 )
 
 cc_library(
-    name = "lru",
+    name = "lru_cache",
     srcs = [
-        "lru.cpp",
-        "lru.h",
-    ],
-    deps = [
-        "@gtest",
-        "@gtest//:gtest_main",
+        "lru_cache.cpp",
+        "lru_cache.h",
     ],
 )
 
 cc_test(
-    name = "test_lru",
+    name = "test_lru_cache",
     srcs = [
-        "test_lru.cpp",
+        "test_lru_cache.cpp",
     ],
     deps = [
-        ":lru",
+        ":lru_cache",
+        "@gtest",
+        "@gtest//:gtest_main",
     ],
 )

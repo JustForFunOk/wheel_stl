@@ -1,4 +1,0 @@
-namespace wheel_stl
-{
-
-}
