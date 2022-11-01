@@ -49,6 +49,16 @@ cc_library(
     ],
 )
 
+cc_library(
+    name = "rectangle2",
+    hdrs = [
+        "rectangle2.h",
+    ],
+    deps = [
+        ":point2",
+    ],
+)
+
 ######################################TEST#####################################
 
 cc_test(
@@ -85,5 +95,17 @@ cc_test(
         "@gtest",
         "@gtest//:gtest_main",
         ":polygon2"
+    ],
+)
+
+cc_test(
+    name = "rectangle2_test",
+    srcs = [
+        "rectangle2_test.cpp",
+    ],
+    deps = [
+        "@gtest",
+        "@gtest//:gtest_main",
+        ":rectangle2"
     ],
 )
