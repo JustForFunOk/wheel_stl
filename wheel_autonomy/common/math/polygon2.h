@@ -32,7 +32,9 @@ class Polygon2 {
  public:
   Polygon2() {}
 
-  std::vector<Point2<_Tp>>& Points() const;
+  std::vector<Point2<_Tp>>& Points();
+
+  const std::vector<Point2<_Tp>>& Points() const;
 
   bool IsConvexHull() {}
 
@@ -46,9 +48,8 @@ class Polygon2 {
    * @return false The point is not inside specified polygon, include on the
    * border of polygon
    */
-  bool IsPointInside(
-      const Point2<_Tp>& _point,
-      PointInPolygonMethod _method = PointInPolygonMethod::kRayCasting) const;
+  template <typename Method>  // C++17
+  bool IsPointInside(const Point2<_Tp>& _point) const;
 
  private:
   bool IsPointInsideUsingCrossProduct(const Point2<_Tp>& _point) const;
@@ -61,27 +62,21 @@ using Polygon2d = Polygon2<double>;
 
 /////////////////////////////////Implement/////////////////////////////////////
 template <typename _Tp>
-inline std::vector<Point2<_Tp>>& Polygon2<_Tp>::Points() const {
+std::vector<Point2<_Tp>>& Polygon2<_Tp>::Points() {
   return this->points_;
 }
 
 template <typename _Tp>
-bool Polygon2<_Tp>::IsPointInside(const Point2<_Tp>& _point,
-                                  PointInPolygonMethod _method) const {
-  bool is_point_inside = false;
-  // TODO: 能否改进代码结构，让编译期间就确定执行哪种算法，避免运行期间分支预测
-  switch (_method) {
-    case PointInPolygonMethod::kCrossProduct:
-      is_point_inside = IsPointInsideUsingCrossProduct(_point);
-      break;
-    case PointInPolygonMethod::kRayCasting:
-      // TODO
-      break;
-    case PointInPolygonMethod::kWindingNumber:
-      // TODO
-      break;
+const std::vector<Point2<_Tp>>& Polygon2<_Tp>::Points() const {
+  return this->points_;
+}
+
+template <typename _Tp>
+template <typename Method>  // 注意写法，template function in template class
+bool Polygon2<_Tp>::IsPointInside(const Point2<_Tp>& _point) const {
+  if constexpr (std::is_same_v<Method, PointInPolygonMethod::kCrossProduct>) {
+    return IsPointInsideUsingCrossProduct(_point);
   }
-  return is_point_inside;
 }
 
 /// 实现原理：
