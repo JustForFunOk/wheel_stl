@@ -1,4 +1,3 @@
-load("@rules_cc//cc:defs.bzl", "cc_test")
 load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
 
 package(default_visibility = ["//visibility:public"])
@@ -10,11 +9,13 @@ buildifier(
     verbose = True,
 )
 
-
 cc_library(
-    name = "vec2",
+    name = "line_segment2",
     hdrs = [
-        "vec2.h",
+        "line_segment2.h",
+    ],
+    deps = [
+        ":point2",
     ],
 )
 
@@ -25,16 +26,6 @@ cc_library(
     ],
     deps = [
         ":vec2",
-    ],
-)
-
-cc_library(
-    name = "line_segment2",
-    hdrs = [
-        "line_segment2.h",
-    ],
-    deps = [
-        ":point2",
     ],
 )
 
@@ -59,53 +50,9 @@ cc_library(
     ],
 )
 
-######################################TEST#####################################
-
-cc_test(
-    name = "vec2_test",
-    srcs = [
-        "vec2_test.cpp",
-    ],
-    deps = [
-        "@gtest",
-        "@gtest//:gtest_main",
-        "@eigen",
-        ":vec2"
-    ],
-)
-
-cc_test(
-    name = "line_segment2_test",
-    srcs = [
-        "line_segment2_test.cpp",
-    ],
-    deps = [
-        "@gtest",
-        "@gtest//:gtest_main",
-        ":line_segment2"
-    ],
-)
-
-cc_test(
-    name = "polygon2_test",
-    srcs = [
-        "polygon2_test.cpp",
-    ],
-    deps = [
-        "@gtest",
-        "@gtest//:gtest_main",
-        ":polygon2"
-    ],
-)
-
-cc_test(
-    name = "rectangle2_test",
-    srcs = [
-        "rectangle2_test.cpp",
-    ],
-    deps = [
-        "@gtest",
-        "@gtest//:gtest_main",
-        ":rectangle2"
+cc_library(
+    name = "vec2",
+    hdrs = [
+        "vec2.h",
     ],
 )
