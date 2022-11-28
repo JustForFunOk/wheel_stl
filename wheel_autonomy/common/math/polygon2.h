@@ -34,7 +34,7 @@ class Polygon2 {
 
   std::vector<Point2<_Tp>>& Points() const;
 
-  bool IsConvexHull() {}
+  // bool IsConvexHull() {}
 
   /**
    * @brief Check whether a point is inside the polygon
