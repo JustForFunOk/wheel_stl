@@ -42,7 +42,7 @@ class vector {
    * @param n the number of element
    * @param val init val of element
    */
-  vector(size_type n, const value_type& val) {
+  vector(size_type _n, const value_type& val) {
     start_             = vec_allocate(_n);
     end_               = start_ + _n;
     end_of_capability_ = end_;
@@ -71,7 +71,7 @@ class vector {
 
   const_iterator cbegin() const noexcept { return const_iterator(start_); }
 
-  const_iterator cend() const noexcept {return const_iterator(end_)}
+  const_iterator cend() const noexcept { return const_iterator(end_); }
 
   const_reverse_iterator crbegin() const noexcept {
     return const_reverse_iterator(cend());
@@ -107,7 +107,7 @@ class vector {
    * @brief operator []
    * @param n the n-th element of vector
    */
-  reference operator[](size_type _n) noexcept { return *(start_ + n); }
+  reference operator[](size_type _n) noexcept { return *(start_ + _n); }
 
   const_reference operator[](size_type _n) const noexcept {}
 
@@ -166,7 +166,7 @@ class vector {
    */
   pointer vec_allocate(size_type n) {
     // 调用指定的allocator
-    return n != 0 ? allocator_type::allocate(n) : nullptr;
+    return (pointer)malloc(n * sizeof(value_type));
   }
 
  private:
